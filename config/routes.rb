@@ -1,6 +1,25 @@
 Rails.application.routes.draw do
 
 
+  # Routes for the Plan resource:
+
+  # CREATE
+  post("/insert_plan", { :controller => "plans", :action => "create" })
+          
+  # READ
+  get("/plans", { :controller => "plans", :action => "index" })
+  
+  get("/plans/:path_id", { :controller => "plans", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_plan/:path_id", { :controller => "plans", :action => "update" })
+  
+  # DELETE
+  get("/delete_plan/:path_id", { :controller => "plans", :action => "destroy" })
+
+  #------------------------------
+
   #HOMEPAGE WHEN NOT SIGNED IN 
   get("/", {:controller => "user_authentication", :action => "homepage"})
 

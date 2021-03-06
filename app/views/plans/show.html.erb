@@ -1,0 +1,131 @@
+<div>
+  <div>
+    <h1>
+      Plan #<%= @the_plan.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/plans">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_plan/<%= @the_plan.id %>">
+          Delete plan
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Title
+      </dt>
+      <dd>
+        <%= @the_plan.title %>
+      </dd>
+
+      <dt>
+        Creator
+      </dt>
+      <dd>
+        <%= @the_plan.creator_id %>
+      </dd>
+
+      <dt>
+        Location
+      </dt>
+      <dd>
+        <%= @the_plan.location %>
+      </dd>
+
+      <dt>
+        Time
+      </dt>
+      <dd>
+        <%= @the_plan.time %>
+      </dd>
+
+      <dt>
+        Status
+      </dt>
+      <dd>
+        <%= @the_plan.status %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_plan.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_plan.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit plan
+    </h2>
+
+    <form action="/modify_plan/<%= @the_plan.id %>"  method="post" >
+      <div>
+        <label for="title_box">
+          Title
+        </label>
+
+        <input type="text" id="title_box" name="query_title" value="<%= @the_plan.title %>">
+      </div>
+
+      <div>
+        <label for="creator_id_box">
+          Creator
+        </label>
+
+        <input type="text" id="creator_id_box" name="query_creator_id" value="<%= @the_plan.creator_id %>">
+      </div>
+
+      <div>
+        <label for="location_box">
+          Location
+        </label>
+
+        <input type="text" id="location_box" name="query_location" value="<%= @the_plan.location %>">
+      </div>
+
+      <div>
+        <label for="time_box">
+          Time
+        </label>
+
+        <input type="text" id="time_box" name="query_time" value="<%= @the_plan.time %>">
+      </div>
+
+      <div>
+        <label for="status_box">
+          Status
+        </label>
+
+        <input type="text" id="status_box" name="query_status" value="<%= @the_plan.status %>">
+      </div>
+
+      <button>
+        Update plan
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
