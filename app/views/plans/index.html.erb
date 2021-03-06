@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      List of all plans
+      <%= @current_user.first_name%>'s plans:
     </h1>
   </div>
 </div>
@@ -24,11 +24,8 @@
       </div>
 
       <div>
-        <label for="creator_id_box">
-          Creator
-        </label>
-
-        <input type="text" id="creator_id_box" name="query_creator_id">
+        
+        <input type="hidden" id="creator_id_box" name="query_creator_id" value="<%= @current_user.id %>">
       </div>
 
       <div>
@@ -47,6 +44,7 @@
         <input type="text" id="time_box" name="query_time">
       </div>
 
+
       <div>
         <label for="status_box">
           Status
@@ -62,7 +60,9 @@
   </div>
 </div>
 
+
 <hr>
+<h2> Plans I've Created </h2>
 <div>
   <div>
     <table>
@@ -103,7 +103,96 @@
         </th>
       </tr>
 
-      <% @list_of_plans.each do |a_plan| %>
+      <% @list_of_my_plans.each do |a_plan| %>
+      <tr>
+        <td>
+          <%= a_plan.id %>
+        </td>
+
+        <td>
+          <%= a_plan.title %>
+        </td>
+
+        <td>
+          <% matching_user = User.where(:id => a_plan.creator_id).first %>
+          <%= matching_user.first_name %>
+        </td>
+
+        <td>
+          <%= a_plan.location %>
+        </td>
+
+        <td>
+          <%= a_plan.time %>
+        </td>
+
+        <td>
+          <%= a_plan.status %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_plan.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_plan.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/plans/<%= a_plan.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
+
+<hr>
+<h2> Plans I'm Invited To </h2>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Title
+        </th>
+
+        <th>
+          Creator
+        </th>
+
+        <th>
+          Location
+        </th>
+
+        <th>
+          Time
+        </th>
+
+        <th>
+          Status
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_invited_plans.each do |a_plan| %>
       <tr>
         <td>
           <%= a_plan.id %>
@@ -115,6 +204,7 @@
 
         <td>
           <%= a_plan.creator_id %>
+          
         </td>
 
         <td>
