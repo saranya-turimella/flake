@@ -1,0 +1,7 @@
+<% if session[:user_id] == nil %>
+  <h1> Welcome to Flake! </h1>
+  <h2> The app for flakes, by flakes... </h2>
+<% else %>
+  <h1> <%= @current_user.first_name %>, welcome to Flake! </h1>
+  <h2> The app for flakes, by flakes... </h2>
+<% end %>
