@@ -15,4 +15,12 @@ class User < ApplicationRecord
   validates :email, :uniqueness => { :case_sensitive => false }
   validates :email, :presence => true
   has_secure_password
+
+  has_many(:attendances, { :class_name => "Attendance", :foreign_key => "user_id", :dependent => :destroy })
+  has_many(:plans, { :class_name => "Plan", :foreign_key => "creator_id", :dependent => :destroy })
+
+  validates(:username, { :presence => true })
+  validates(:username, { :uniqueness => true })
+  validates(:last_name, { :presence => true })
+  validates(:first_name, { :presence => true })
 end
