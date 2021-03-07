@@ -10,9 +10,11 @@ class PlansController < ApplicationController
     @list_of_plans = matching_plans.order({:created_at => :desc})
 
     #finds all the plans that are not created by the current user - need to fix so that it only sends the plans that the current user is invited to 
+    #
     @list_of_invited_plans = Array.new
     @list_of_plans.each do |a_plan|
       if a_plan.creator_id != @current_user.id
+        #if you didn't make the plan, find all the attendances with this plan id and if your id is equal to the id in the attendance, you push it to the list 
         @list_of_invited_plans.push(a_plan)
       end
     end
