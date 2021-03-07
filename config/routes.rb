@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get("/plans", { :controller => "plans", :action => "index" })
   
   get("/plans/:path_id", { :controller => "plans", :action => "show" })
+
+
   
   # UPDATE
   
