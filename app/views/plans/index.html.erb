@@ -44,14 +44,23 @@
         <input type="text" id="time_box" name="query_time">
       </div>
 
-
       <div>
-        <label for="status_box">
-          Status
+        <label for="invited">
+          Who do you want to invite?
         </label>
 
-        <input type="text" id="status_box" name="query_status">
+        <select id="invited" name="query_invited_id">
+          <%User.all.each do |a_user|%>
+            <% if a_user.id != @current_user.id %>
+              <option value = <%= a_user.id %>>
+                <%= a_user.first_name %> <%= a_user.last_name %>
+              </option>
+            <%end%>
+          <%end%>
+        </select>
       </div>
+
+
 
       <button>
         Create plan

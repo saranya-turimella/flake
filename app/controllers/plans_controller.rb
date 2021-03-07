@@ -5,9 +5,11 @@ class PlansController < ApplicationController
     my_plans = Plan.where(:creator_id => @current_user.id)
     @list_of_my_plans = my_plans.order({ :created_at => :desc })
 
-    # finds all the plans that the current user is invited to 
+    
     matching_plans = Plan.all 
     @list_of_plans = matching_plans.order({:created_at => :desc})
+
+    #finds all the plans that are not created by the current user - need to fix so that it only sends the plans that the current user is invited to 
     @list_of_invited_plans = Array.new
     @list_of_plans.each do |a_plan|
       if a_plan.creator_id != @current_user.id
