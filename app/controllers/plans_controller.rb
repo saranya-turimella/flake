@@ -22,14 +22,24 @@ class PlansController < ApplicationController
     render({ :template => "plans/index.html.erb" })
   end
 
-  def show
+  def show_my_plans
     the_id = params.fetch("path_id")
 
     matching_plans = Plan.where({ :id => the_id })
 
     @the_plan = matching_plans.at(0)
 
-    render({ :template => "plans/show.html.erb" })
+    render({ :template => "plans/show_my_plans.html.erb" })
+  end
+
+  def show_my_invited_plans
+    the_id = params.fetch("path_id")
+
+    matching_plans = Plan.where({ :id => the_id })
+
+    @the_plan = matching_plans.at(0)
+
+    render({ :template => "plans/show_my_invited_plans.html.erb" })
   end
 
   def create

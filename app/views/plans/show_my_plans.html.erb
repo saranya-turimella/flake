@@ -1,10 +1,8 @@
-
-<p> need to add the process of accepting, declining, flaking on a plan on this page </p>
 <div>
   <div>
     <h1>
       <% matching_user = User.where(:id => @the_plan.creator_id).first %>
-      Details for <%= matching_user.first_name %>'s plan: <%= @the_plan.title %>
+      Details for my plan: <%= @the_plan.title %>
     </h1>
     <div>
       <div>
@@ -60,17 +58,7 @@
   </div>
 </div>
 <hr>
-<hr>
-  ALL OF THIS SHOULD ONLY HAPPEN IS THIS IS NOT YOUR PLAN 
-  find the attendance that is associated with this planid and this user id 
-  if pending in this attendance is true then you have the option of either accepting or declining 
-    if you accept, attending in the attendance record is updated to true 
-    if you decline, status of the plan needs to change 
-    pending changes to false
-  if pending is false and attending is true
-    display the flake button 
-  
-<hr>
+
 <% if @current_user.id == @the_plan.creator_id %>
   <div>
     <div>

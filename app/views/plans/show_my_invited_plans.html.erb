@@ -4,7 +4,7 @@
   <div>
     <h1>
       <% matching_user = User.where(:id => @the_plan.creator_id).first %>
-      Details for <%= matching_user.first_name %>'s plan: <%= @the_plan.title %>
+      You are invited to <%= matching_user.first_name %>'s plan: <%= @the_plan.title %>
     </h1>
     <div>
       <div>
@@ -71,42 +71,4 @@
     display the flake button 
   
 <hr>
-<% if @current_user.id == @the_plan.creator_id %>
-  <div>
-    <div>
-      <h2>
-        Reschedule your plan 
-      </h2>
-      <form action="/modify_plan/<%= @the_plan.id %>"  method="post" >
-        <div>
-          <label for="title_box">
-            Title
-          </label>
-          <input type="text" id="title_box" name="query_title" value="<%= @the_plan.title %>">
-        </div>
-        <div>
-          <label for="creator_id_box">
-            Creator
-          </label>
-          <input type="hidden" id="creator_id_box" name="query_creator_id" value="<%= @the_plan.creator_id %>">
-        </div>
-        <div>
-          <label for="location_box">
-            Location
-          </label>
-          <input type="text" id="location_box" name="query_location" value="<%= @the_plan.location %>">
-        </div>
-        <div>
-          <label for="time_box">
-            Enter a new time 
-          </label>
-          <input type="text" id="time_box" name="query_time">
-        </div>
-        <button>
-          Reschedule plan
-        </button>
-      </form>
-    </div>
-  </div>
-<%end%>
 <hr>

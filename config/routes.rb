@@ -9,7 +9,10 @@ Rails.application.routes.draw do
   # READ
   get("/plans", { :controller => "plans", :action => "index" })
   
-  get("/plans/:path_id", { :controller => "plans", :action => "show" })
+  # get("/plans/:path_id", { :controller => "plans", :action => "show" })
+
+  get("/my_plans/:path_id", { :controller => "plans", :action => "show_my_plans" })
+  get("/my_invited_plans/:path_id", { :controller => "plans", :action => "show_my_invited_plans"})
 
 
   
