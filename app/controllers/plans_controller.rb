@@ -70,9 +70,9 @@ class PlansController < ApplicationController
 
     if the_plan.valid?
       the_plan.save
-      redirect_to("/plans/#{the_plan.id}", { :notice => "Plan updated successfully."} )
+      redirect_to("/my_plans/#{the_plan.id}", { :notice => "Plan updated successfully."} )
     else
-      redirect_to("/plans/#{the_plan.id}", { :alert => "Plan failed to update successfully." })
+      redirect_to("/my_plans/#{the_plan.id}", { :alert => "Plan failed to update successfully." })
     end
   end
 

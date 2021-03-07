@@ -12,12 +12,10 @@ Rails.application.routes.draw do
   # get("/plans/:path_id", { :controller => "plans", :action => "show" })
 
   get("/my_plans/:path_id", { :controller => "plans", :action => "show_my_plans" })
+
   get("/my_invited_plans/:path_id", { :controller => "plans", :action => "show_my_invited_plans"})
 
-
-  
   # UPDATE
-  
   post("/modify_plan/:path_id", { :controller => "plans", :action => "update" })
   
   # DELETE
