@@ -30,6 +30,9 @@
         </li>
       <% else %>
         <li>
+          Currently Signed in As: <%= @current_user.first_name %>
+        </li>
+        <li>
           <a href = "/user_sign_out">
             Sign out 
           </a>
@@ -42,7 +45,7 @@
         <li>
           <a href = "/plans">
             Your Plans
-          </a> 
+          </a>
         </li>
       <% end %>
     </ul>

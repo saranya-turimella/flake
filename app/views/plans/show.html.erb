@@ -1,23 +1,22 @@
+
+<p> need to add the process of accepting, declining, flaking on a plan on this page </p>
 <div>
   <div>
     <h1>
-      Plan #<%= @the_plan.id %> details
+      Details for: <%= @the_plan.title %>
     </h1>
-
     <div>
       <div>
         <a href="/plans">
           Go back
         </a>
       </div>
-
       <div>
         <a href="/delete_plan/<%= @the_plan.id %>">
           Delete plan
         </a>
       </div>
     </div>
-
     <dl>
       <dt>
         Title
@@ -25,107 +24,71 @@
       <dd>
         <%= @the_plan.title %>
       </dd>
-
       <dt>
         Creator
       </dt>
       <dd>
-        <%= @the_plan.creator_id %>
+        <% matching_user = User.where(:id => @the_plan.creator_id).first %>
+        <%= matching_user.first_name %>
       </dd>
-
       <dt>
         Location
       </dt>
       <dd>
         <%= @the_plan.location %>
       </dd>
-
       <dt>
         Time
       </dt>
       <dd>
         <%= @the_plan.time %>
       </dd>
-
       <dt>
         Status
       </dt>
       <dd>
         <%= @the_plan.status %>
       </dd>
-
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_plan.created_at) %> ago
-      </dd>
-
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_plan.updated_at) %> ago
-      </dd>
     </dl>
   </div>
 </div>
-
 <hr>
-
-
-<div>
+<% if @current_user.id == @the_plan.creator_id %>
   <div>
-    <h2>
-      Edit plan
-    </h2>
-
-    <form action="/modify_plan/<%= @the_plan.id %>"  method="post" >
-      <div>
-        <label for="title_box">
-          Title
-        </label>
-
-        <input type="text" id="title_box" name="query_title" value="<%= @the_plan.title %>">
-      </div>
-
-      <div>
-        <label for="creator_id_box">
-          Creator
-        </label>
-
-        <input type="text" id="creator_id_box" name="query_creator_id" value="<%= @the_plan.creator_id %>">
-      </div>
-
-      <div>
-        <label for="location_box">
-          Location
-        </label>
-
-        <input type="text" id="location_box" name="query_location" value="<%= @the_plan.location %>">
-      </div>
-
-      <div>
-        <label for="time_box">
-          Time
-        </label>
-
-        <input type="text" id="time_box" name="query_time" value="<%= @the_plan.time %>">
-      </div>
-
-      <div>
-        <label for="status_box">
-          Status
-        </label>
-
-        <input type="text" id="status_box" name="query_status" value="<%= @the_plan.status %>">
-      </div>
-
-      <button>
-        Update plan
-      </button>
-    </form>
+    <div>
+      <h2>
+        Reschedule your plan 
+      </h2>
+      <form action="/modify_plan/<%= @the_plan.id %>"  method="post" >
+        <div>
+          <label for="title_box">
+            Title
+          </label>
+          <input type="text" id="title_box" name="query_title" value="<%= @the_plan.title %>">
+        </div>
+        <div>
+          <label for="creator_id_box">
+            Creator
+          </label>
+          <input type="hidden" id="creator_id_box" name="query_creator_id" value="<%= @the_plan.creator_id %>">
+        </div>
+        <div>
+          <label for="location_box">
+            Location
+          </label>
+          <input type="text" id="location_box" name="query_location" value="<%= @the_plan.location %>">
+        </div>
+        <div>
+          <label for="time_box">
+            Enter a new time 
+          </label>
+          <input type="text" id="time_box" name="query_time">
+        </div>
+        <button>
+          Reschedule plan
+        </button>
+      </form>
+    </div>
   </div>
-</div>
-
+<%end%>
 <hr>
