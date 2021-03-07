@@ -36,7 +36,7 @@ class PlansController < ApplicationController
     the_plan.creator_id = params.fetch("query_creator_id")
     the_plan.location = params.fetch("query_location")
     the_plan.time = params.fetch("query_time")
-    the_plan.status = params.fetch("query_status")
+    the_plan.status = "It's On!"
 
     if the_plan.valid?
       the_plan.save
