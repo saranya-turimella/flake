@@ -60,7 +60,6 @@
           <%end%>
         </select>
       </div>
- <p> every time you create a plan, create an attendance that stores the plan id, current user id, sets flake to false, and pending to false </p>
       <button>
         Create plan
       </button>
@@ -203,7 +202,8 @@
         </td>
 
         <td>
-          <%= a_plan.creator_id %>
+          <% matching_user = User.where(:id => a_plan.creator_id).first %>
+          <%= matching_user.first_name %>
           
         </td>
 

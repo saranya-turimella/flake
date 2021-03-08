@@ -22,8 +22,8 @@ class PlansController < ApplicationController
       matching_attendances = Attendance.where(:plan_id => a_plan.id)
         matching_attendances.each do |a_attendance|
           if a_attendance.user_id == @current_user.id
-            matching_plan = Plan.where(:id => a_attendance.plan_id)
-            @list_of_invited_plans.add(matching_plan)
+            matching_plan = Plan.where(:id => a_attendance.plan_id).first
+            @list_of_invited_plans.push(matching_plan)
           end
         end
       end
@@ -58,17 +58,17 @@ class PlansController < ApplicationController
     the_plan.location = params.fetch("query_location")
     the_plan.time = params.fetch("query_time")
     the_plan.status = "It's On!"
-    invited_id = params.fetch("query_invited_id")
+    @invited_id = params.fetch("query_invited_id")
 
     if the_plan.valid?
       the_plan.save
-      # invited_attendance = Attendance.new
-      # invited_attendance.user_id = invited_id
-      # invited_attendance.plan_id = the_plan.id
-      # invited_attendance.flake = false
-      # invited_attendance.pending = true 
-      # invited_attendance.attending = true
-      # invited_attendance.save 
+      invited_attendance = Attendance.new
+      invited_attendance.user_id = invited_id
+      invited_attendance.plan_id = the_plan.id
+      invited_attendance.flake = false
+      invited_attendance.pending = true 
+      invited_attendance.attending = true
+      invited_attendance.save 
       redirect_to("/plans", { :notice => "Plan created successfully." })
     else
       redirect_to("/plans", { :notice => "Plan failed to create successfully." })
