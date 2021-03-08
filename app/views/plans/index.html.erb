@@ -55,17 +55,14 @@
             <% if a_user.id != @current_user.id %>
               <option value = <%= a_user.id %>>
                 <%= a_user.first_name %> <%= a_user.last_name %>
-               
               </option>
             <%end%>
           <%end%>
         </select>
       </div>
- <p> every time you select a user, create an attendance that stores the plan id, a_user.id, sets flake to false, and sets pending to true </p>
  <p> every time you create a plan, create an attendance that stores the plan id, current user id, sets flake to false, and pending to false </p>
       <button>
         Create plan
-        
       </button>
     </form>
   </div>
@@ -107,6 +104,13 @@
       </tr>
 
       <% @list_of_my_plans.each do |a_plan| %>
+      <% creator_attendance = Attendance.create %>
+      <% creator_attendance.user_id = a_plan.creator_id %>
+      <% creator_attendance.plan_id = a_plan.id %>
+      <% creator_attendance.flake = false %>
+      <% creator_attendance.pending = false %>
+      <% creator_attendance.attending = true %>
+      <% creator_attendance.save %>
       <tr>
         <td>
           <%= a_plan.id %>
