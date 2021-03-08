@@ -1,23 +1,32 @@
 class PlansController < ApplicationController
   def index
-
     # finds all the plans that the current user has created
     my_plans = Plan.where(:creator_id => @current_user.id)
     @list_of_my_plans = my_plans.order({ :created_at => :desc })
 
-    
+    # finds all the plans that the current user has not created
+    list_of_not_created_plans = Array.new
     matching_plans = Plan.all 
-    @list_of_plans = matching_plans.order({:created_at => :desc})
-
-    #finds all the plans that are not created by the current user - need to fix so that it only sends the plans that the current user is invited to 
-    #
-    @list_of_invited_plans = Array.new
-    @list_of_plans.each do |a_plan|
+    list_of_plans = matching_plans.order({:created_at => :desc})
+    list_of_plans.each do |a_plan|
       if a_plan.creator_id != @current_user.id
-        #if you didn't make the plan, find all the attendances with this plan id and if your id is equal to the id in the attendance, you push it to the list 
-        @list_of_invited_plans.push(a_plan)
+        list_of_not_created_plans.push(a_plan)
       end
     end
+
+    # finds all the plans that the current user is invited to... goes through the list of plans that the current user has not created
+    # finds the matching attendances for each plan that the current user has not craeated 
+    # if there is an attendance with a user id that is equal to the current user id then that is plan that the current user is invited to
+    @list_of_invited_plans = Array.new
+    list_of_not_created_plans.each do |a_plan|
+      matching_attendances = Attendance.where(:plan_id => a_plan.id)
+        matching_attendances.each do |a_attendance|
+          if a_attendance.user_id == @current_user.id
+            matching_plan = Plan.where(:id => a_attendance.plan_id)
+            @list_of_invited_plans.add(matching_plan)
+          end
+        end
+      end
 
     render({ :template => "plans/index.html.erb" })
   end
