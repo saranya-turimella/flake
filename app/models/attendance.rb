@@ -12,4 +12,9 @@
 #  user_id    :integer
 #
 class Attendance < ApplicationRecord
+  belongs_to(:user, { :required => false, :class_name => "User", :foreign_key => "user_id" })
+  belongs_to(:plan, { :required => false, :class_name => "Plan", :foreign_key => "plan_id" })
+  validates(:user_id, { :presence => true })
+  validates(:user_id, { :uniqueness => { :scope => ["plan_id"] } })
+  validates(:plan_id, { :presence => true })
 end
