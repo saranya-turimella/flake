@@ -1,0 +1,144 @@
+<div>
+  <div>
+    <h1>
+      List of all attendances
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new attendance
+    </h2>
+
+    <form action="/insert_attendance" method="post">
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id">
+      </div>
+
+      <div>
+        <label for="plan_id_box">
+          Plan
+        </label>
+
+        <input type="text" id="plan_id_box" name="query_plan_id">
+      </div>
+
+      <div>
+        <input type="checkbox" id="flake_box" name="query_flake" value="1">
+
+        <label for="flake_box">Flake</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="pending_box" name="query_pending" value="1">
+
+        <label for="pending_box">Pending</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="attending_box" name="query_attending" value="1">
+
+        <label for="attending_box">Attending</label>
+      </div>
+
+      <button>
+        Create attendance
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Plan
+        </th>
+
+        <th>
+          Flake
+        </th>
+
+        <th>
+          Pending
+        </th>
+
+        <th>
+          Attending
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_attendances.each do |an_attendance| %>
+      <tr>
+        <td>
+          <%= an_attendance.id %>
+        </td>
+
+        <td>
+          <%= an_attendance.user_id %>
+        </td>
+
+        <td>
+          <%= an_attendance.plan_id %>
+        </td>
+
+        <td>
+          <%= an_attendance.flake %>
+        </td>
+
+        <td>
+          <%= an_attendance.pending %>
+        </td>
+
+        <td>
+          <%= an_attendance.attending %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(an_attendance.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(an_attendance.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/attendances/<%= an_attendance.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

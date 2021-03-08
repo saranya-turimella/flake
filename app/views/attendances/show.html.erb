@@ -1,0 +1,131 @@
+<div>
+  <div>
+    <h1>
+      Attendance #<%= @the_attendance.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/attendances">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_attendance/<%= @the_attendance.id %>">
+          Delete attendance
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_attendance.user_id %>
+      </dd>
+
+      <dt>
+        Plan
+      </dt>
+      <dd>
+        <%= @the_attendance.plan_id %>
+      </dd>
+
+      <dt>
+        Flake
+      </dt>
+      <dd>
+        <%= @the_attendance.flake %>
+      </dd>
+
+      <dt>
+        Pending
+      </dt>
+      <dd>
+        <%= @the_attendance.pending %>
+      </dd>
+
+      <dt>
+        Attending
+      </dt>
+      <dd>
+        <%= @the_attendance.attending %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_attendance.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_attendance.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit attendance
+    </h2>
+
+    <form action="/modify_attendance/<%= @the_attendance.id %>"  method="post" >
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_attendance.user_id %>">
+      </div>
+
+      <div>
+        <label for="plan_id_box">
+          Plan
+        </label>
+
+        <input type="text" id="plan_id_box" name="query_plan_id" value="<%= @the_attendance.plan_id %>">
+      </div>
+
+      <div>
+        <input type="checkbox" id="flake_box" name="query_flake" value="1" <%= "checked" if @the_attendance.flake %>>
+
+        <label for="flake_box">
+            Flake
+        </label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="pending_box" name="query_pending" value="1" <%= "checked" if @the_attendance.pending %>>
+
+        <label for="pending_box">
+            Pending
+        </label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="attending_box" name="query_attending" value="1" <%= "checked" if @the_attendance.attending %>>
+
+        <label for="attending_box">
+            Attending
+        </label>
+      </div>
+
+      <button>
+        Update attendance
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

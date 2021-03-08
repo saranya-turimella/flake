@@ -1,6 +1,25 @@
 Rails.application.routes.draw do
 
 
+  # Routes for the Attendance resource:
+
+  # CREATE
+  post("/insert_attendance", { :controller => "attendances", :action => "create" })
+          
+  # READ
+  get("/attendances", { :controller => "attendances", :action => "index" })
+  
+  get("/attendances/:path_id", { :controller => "attendances", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_attendance/:path_id", { :controller => "attendances", :action => "update" })
+  
+  # DELETE
+  get("/delete_attendance/:path_id", { :controller => "attendances", :action => "destroy" })
+
+  #------------------------------
+
   # Routes for the Plan resource:
 
   # CREATE
