@@ -1,4 +1,3 @@
-
 <p> need to add the process of accepting, declining, flaking on a plan on this page </p>
 <div>
   <div>
@@ -13,11 +12,11 @@
         </a>
       </div>
       <% if @current_user.id == @the_plan.creator_id %>
-      <div>
-        <a href="/delete_plan/<%= @the_plan.id %>">
-          Delete plan
-        </a>
-      </div>
+        <div>
+          <a href="/delete_plan/<%= @the_plan.id %>">
+            Delete plan
+          </a>
+        </div>
       <% end %>
     </div>
     <dl>
@@ -32,11 +31,11 @@
       </dt>
       <dd>
         <% matching_user = User.where(:id => @the_plan.creator_id).first %>
-          <% if matching_user.id == @current_user.id %>
-            <%= matching_user.first_name %> - This is your plan. 
-          <% else %>
-            <%= matching_user.first_name %> 
-          <% end %>
+        <% if matching_user.id == @current_user.id %>
+          <%= matching_user.first_name %> - This is your plan. 
+        <% else %>
+          <%= matching_user.first_name %>
+        <% end %>
       </dd>
       <dt>
         Location
@@ -54,21 +53,41 @@
         Status
       </dt>
       <dd>
-        <%= @the_plan.status %>
+        <% matching_attendance = Attendance.where(:user_id => @current_user.id, :plan_id => @the_plan.id).first %>
+        <% if matching_attendance.pending == true %>
+          <p> You have not yet responded to this plan. </p>
+          <div>
+            <a href="/accept_plan/<%= @the_plan.id %>/<%= @current_user.id %>">
+              Accept Invitation
+            </a>
+          </div>
+          <div>
+            <a href="/decline_plan/<%= @the_plan.id %>/<%= @current_user.id %>">
+              Decline Invitation
+            </a>
+          </div>
+        <% end %>
+
+
+
+        <p> Your status: <%= matching_attendance.get_status_text %> </p>
+        <% status = @the_plan.find_status %>
+        <% @the_plan.status = status %>
+        <% @the_plan.save %>
+        <p> Plan status: <%= @the_plan.status %> </p>
       </dd>
     </dl>
   </div>
 </div>
 <hr>
 <hr>
-  ALL OF THIS SHOULD ONLY HAPPEN IS THIS IS NOT YOUR PLAN 
-  find the attendance that is associated with this planid and this user id 
-  if pending in this attendance is true then you have the option of either accepting or declining 
-    if you accept, attending in the attendance record is updated to true 
-    if you decline, status of the plan needs to change 
-    pending changes to false
-  if pending is false and attending is true
-    display the flake button 
-  
+ALL OF THIS SHOULD ONLY HAPPEN IS THIS IS NOT YOUR PLAN 
+find the attendance that is associated with this planid and this user id 
+if pending in this attendance is true then you have the option of either accepting or declining 
+if you accept, attending in the attendance record is updated to true 
+if you decline, status of the plan needs to change 
+pending changes to false
+if pending is false and attending is true
+display the flake button 
 <hr>
 <hr>

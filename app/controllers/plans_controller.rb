@@ -112,4 +112,27 @@ class PlansController < ApplicationController
 
     redirect_to("/plans", { :notice => "Plan deleted successfully."} )
   end
+
+  def accept 
+    accepting_plan_id = params.fetch("path_id")
+    accepting_user_id = params.fetch("user_id")
+    the_attendance = Attendance.where({:user_id => accepting_user_id, :plan_id => accepting_plan_id}).first
+    the_attendance.attending = true 
+    the_attendance.pending = false 
+    the_attendance.save
+    the_plan = Plan.where({ :id => accepting_plan_id }).at(0)
+    redirect_to("/my_plans/#{the_plan.id}")
+  end
+
+  def decline 
+    accepting_plan_id = params.fetch("path_id")
+    accepting_user_id = params.fetch("user_id")
+    the_attendance = Attendance.where({:user_id => accepting_user_id, :plan_id => accepting_plan_id}).first
+    the_attendance.attending = false 
+    the_attendance.pending = false 
+    the_attendance.save
+    the_plan = Plan.where({ :id => accepting_plan_id }).at(0)
+    redirect_to("/my_plans/#{the_plan.id}")
+  end
+    
 end

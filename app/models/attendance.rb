@@ -17,4 +17,13 @@ class Attendance < ApplicationRecord
   validates(:user_id, { :presence => true })
   validates(:user_id, { :uniqueness => { :scope => ["plan_id"] } })
   validates(:plan_id, { :presence => true })
+
+  def get_status_text
+    if self.attending == true && self.pending == false
+      return "You are attending this plan"
+    end
+    if self.attending == false && self.pending == false 
+      return "You are not attending this plan"
+    end
+  end
 end

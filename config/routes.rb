@@ -36,6 +36,10 @@ Rails.application.routes.draw do
 
   # UPDATE
   post("/modify_plan/:path_id", { :controller => "plans", :action => "update" })
+
+  get("/accept_plan/:path_id/:user_id", { :controller => "plans", :action => "accept" })
+
+  get("/decline_plan/:path_id/:user_id", { :controller => "plans", :action => "decline" })
   
   # DELETE
   get("/delete_plan/:path_id", { :controller => "plans", :action => "destroy" })
