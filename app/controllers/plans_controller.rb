@@ -57,13 +57,14 @@ class PlansController < ApplicationController
     the_plan.creator_id = params.fetch("query_creator_id")
     the_plan.location = params.fetch("query_location")
     the_plan.time = params.fetch("query_time")
-    the_plan.status = "Not everyone has responded yet"
+    the_plan.status = the_plan.find_status
     @invited_id = params.fetch("query_invited_id")
 
     if the_plan.valid?
       the_plan.save
 
-      creator_attendance = Attendance.create 
+      # when we create the attendances, flake is false, pending is true, and attending is false 
+      creator_attendance = Attendance.new 
       creator_attendance.user_id = the_plan.creator_id
       creator_attendance.plan_id = the_plan.id
       creator_attendance.flake = false
@@ -71,7 +72,7 @@ class PlansController < ApplicationController
       creator_attendance.attending = false
       creator_attendance.save
 
-      invited_attendance = Attendance.create
+      invited_attendance = Attendance.new
       invited_attendance.user_id = @invited_id
       invited_attendance.plan_id = the_plan.id
       invited_attendance.flake = false
@@ -93,7 +94,7 @@ class PlansController < ApplicationController
     the_plan.creator_id = params.fetch("query_creator_id")
     the_plan.location = params.fetch("query_location")
     the_plan.time = params.fetch("query_time")
-    the_plan.status = "Not everyone has responded yet!"
+    the_plan.status = the_plan.find_status
 
     if the_plan.valid?
       the_plan.save

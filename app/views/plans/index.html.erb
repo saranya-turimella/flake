@@ -99,6 +99,9 @@
             <%= a_plan.time %>
           </td>
           <td>
+            <% status = a_plan.find_status %>
+            <% a_plan.status = status %>
+            <% a_plan.save %>
             <%= a_plan.status %>
           </td>
           <td>
@@ -155,6 +158,9 @@
             <%= a_plan.time %>
           </td>
           <td>
+            <% status = a_plan.find_status %>
+            <% a_plan.status = status %>
+            <% a_plan.save %>
             <%= a_plan.status %>
           </td>
          
