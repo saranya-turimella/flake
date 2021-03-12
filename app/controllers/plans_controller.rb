@@ -62,13 +62,23 @@ class PlansController < ApplicationController
 
     if the_plan.valid?
       the_plan.save
-      invited_attendance = Attendance.new
+
+      creator_attendance = Attendance.create 
+      creator_attendance.user_id = the_plan.creator_id
+      creator_attendance.plan_id = the_plan.id
+      creator_attendance.flake = false
+      creator_attendance.pending = true
+      creator_attendance.attending = false
+      creator_attendance.save
+
+      invited_attendance = Attendance.create
       invited_attendance.user_id = @invited_id
       invited_attendance.plan_id = the_plan.id
       invited_attendance.flake = false
       invited_attendance.pending = true 
-      invited_attendance.attending = true
+      invited_attendance.attending = false
       invited_attendance.save 
+
       redirect_to("/plans", { :notice => "Plan created successfully." })
     else
       redirect_to("/plans", { :notice => "Plan failed to create successfully." })

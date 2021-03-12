@@ -22,7 +22,7 @@ class AttendancesController < ApplicationController
     the_attendance.user_id = params.fetch("query_user_id")
     the_attendance.plan_id = params.fetch("query_plan_id")
     the_attendance.flake = params.fetch("query_flake", false)
-    the_attendance.pending = params.fetch("query_pending", false)
+    the_attendance.pending = params.fetch("query_pending", true)
     the_attendance.attending = params.fetch("query_attending", false)
 
     if the_attendance.valid?

@@ -61,9 +61,7 @@
   <div>
     <table>
       <tr>
-        <th>
-          ID
-        </th>
+        
         <th>
           Title
         </th>
@@ -84,17 +82,9 @@
       </tr>
       
       <% @list_of_my_plans.each do |a_plan| %>
-        <% creator_attendance = Attendance.create %>
-        <% creator_attendance.user_id = a_plan.creator_id %>
-        <% creator_attendance.plan_id = a_plan.id %>
-        <% creator_attendance.flake = false %>
-        <% creator_attendance.pending = false %>
-        <% creator_attendance.attending = true %>
-        <% creator_attendance.save %>
+       
         <tr>
-          <td>
-            <%= a_plan.id %>
-          </td>
+         
           <td>
             <%= a_plan.title %>
           </td>
@@ -109,8 +99,6 @@
             <%= a_plan.time %>
           </td>
           <td>
-            <% a_plan.status = a_plan.find_status %>
-            <% a_plan.save %>
             <%= a_plan.status %>
           </td>
           <td>
@@ -130,9 +118,7 @@
   <div>
     <table>
       <tr>
-        <th>
-          ID
-        </th>
+        
         <th>
           Title
         </th>
@@ -148,20 +134,13 @@
         <th>
           Status
         </th>
-        <th>
-          Created at
-        </th>
-        <th>
-          Updated at
-        </th>
+        
         <th>
         </th>
       </tr>
       <% @list_of_invited_plans.each do |a_plan| %>
         <tr>
-          <td>
-            <%= a_plan.id %>
-          </td>
+          
           <td>
             <%= a_plan.title %>
           </td>
@@ -178,12 +157,7 @@
           <td>
             <%= a_plan.status %>
           </td>
-          <td>
-            <%= time_ago_in_words(a_plan.created_at) %> ago
-          </td>
-          <td>
-            <%= time_ago_in_words(a_plan.updated_at) %> ago
-          </td>
+         
           <td>
             <a href="/my_invited_plans/<%= a_plan.id %>">
               Show details
