@@ -21,9 +21,12 @@ class Attendance < ApplicationRecord
   def get_status_text
     if self.attending == true && self.pending == false
       return "You are attending this plan"
-    end
-    if self.attending == false && self.pending == false 
+    
+    elsif self.attending == false && self.pending == false && self.flake != true
       return "You are not attending this plan"
+    
+    elsif self.flake == true && self.pending == false 
+      return "You have flaked on this plan"
     end
   end
 end

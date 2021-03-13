@@ -66,7 +66,19 @@
         Status
       </dt>
       <dd>
-        <%= @the_plan.status %>
+          <% matching_attendance = Attendance.where(:user_id => @current_user.id, :plan_id => @the_plan.id).first %>
+          <p> Your status: <%= matching_attendance.get_status_text %> </p>
+          <% status = @the_plan.find_status %>
+          <% @the_plan.status = status %>
+          <% @the_plan.save %>
+          <p> Plan status: <%= @the_plan.status %> </p>
+          <% if matching_attendance.attending == true %>
+            <div>
+              <a href="/flake/<%= @the_plan.id %>/<%= @current_user.id %>">
+                FLAKE on this plan. 
+              </a>
+            </div>
+          <% end %>
       </dd>
     </dl>
   </div>

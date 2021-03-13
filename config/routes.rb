@@ -40,6 +40,8 @@ Rails.application.routes.draw do
   get("/accept_plan/:path_id/:user_id", { :controller => "plans", :action => "accept" })
 
   get("/decline_plan/:path_id/:user_id", { :controller => "plans", :action => "decline" })
+
+  get("/flake/:path_id/:user_id", { :controller => "plans", :action => "flake" })
   
   # DELETE
   get("/delete_plan/:path_id", { :controller => "plans", :action => "destroy" })

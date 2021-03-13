@@ -63,15 +63,16 @@ class PlansController < ApplicationController
     if the_plan.valid?
       the_plan.save
 
-      # when we create the attendances, flake is false, pending is true, and attending is false 
+      # when we create the attendance for the creator, flake is false, pending is false, and attending is true 
       creator_attendance = Attendance.new 
       creator_attendance.user_id = the_plan.creator_id
       creator_attendance.plan_id = the_plan.id
       creator_attendance.flake = false
-      creator_attendance.pending = true
-      creator_attendance.attending = false
+      creator_attendance.pending = false
+      creator_attendance.attending = true
       creator_attendance.save
 
+      # when we create the attendance for the invited, flake is false, pending is true, and attending is false because they still have to decide 
       invited_attendance = Attendance.new
       invited_attendance.user_id = @invited_id
       invited_attendance.plan_id = the_plan.id
@@ -125,13 +126,25 @@ class PlansController < ApplicationController
   end
 
   def decline 
-    accepting_plan_id = params.fetch("path_id")
-    accepting_user_id = params.fetch("user_id")
-    the_attendance = Attendance.where({:user_id => accepting_user_id, :plan_id => accepting_plan_id}).first
+    declining_plan_id = params.fetch("path_id")
+    declining_user_id = params.fetch("user_id")
+    the_attendance = Attendance.where({:user_id => declining_user_id, :plan_id => declining_plan_id}).first
     the_attendance.attending = false 
     the_attendance.pending = false 
     the_attendance.save
-    the_plan = Plan.where({ :id => accepting_plan_id }).at(0)
+    the_plan = Plan.where({ :id => declining_plan_id }).at(0)
+    redirect_to("/my_plans/#{the_plan.id}")
+  end
+
+  def flake 
+    flaking_plan_id = params.fetch("path_id")
+    flaking_user_id = params.fetch("user_id")
+    the_attendance = Attendance.where({:user_id => flaking_user_id, :plan_id => flaking_plan_id}).first
+    the_attendance.flake = true 
+    the_attendance.attending = false 
+    the_attendance.pending = false 
+    the_attendance.save
+    the_plan = Plan.where({ :id => flaking_plan_id }).at(0)
     redirect_to("/my_plans/#{the_plan.id}")
   end
     
