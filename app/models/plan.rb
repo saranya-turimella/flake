@@ -50,7 +50,7 @@ class Plan < ApplicationRecord
     # if the number of people that flaked is equal to the number of people invited to this plan, then this plan has been flaked on 
     # must be equal, because everyone must want to flake in order for it to be flaked on by everyone
     if num_flakes == matching_attendances.size
-      return "This plan has been flaked on by everyone"
+      return "This plan has been flaked on by everyone. This plan is now cancelled."
     end
 
     #if there are some flakes, and everyone has responded 
