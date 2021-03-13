@@ -25,13 +25,20 @@ class Plan < ApplicationRecord
     p matching_attendances
   
     # loop that finds if all people invited have responded to the plan yet, if all have responded returns true, if not returns false
+    declines = 0
     all_responses = true
     matching_attendances.each do |a_attendance|
       if a_attendance.pending == true 
         all_responses = false 
       end
+      if a_attendance.attending == false 
+        return "This plan has been cancelled because someone invited declined the invitiation."
+      end
     end
     
+
+    
+
     #if there is one person that has not responded to the plan yet, return that not everyone has responded yet
     if all_responses == false
       return "Not everyone has responded yet!"

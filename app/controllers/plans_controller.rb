@@ -58,6 +58,7 @@ class PlansController < ApplicationController
     the_plan.location = params.fetch("query_location")
     the_plan.time = params.fetch("query_time")
     the_plan.status = the_plan.find_status
+    # with multiple people, this will be a list
     @invited_id = params.fetch("query_invited_id")
 
     if the_plan.valid?
@@ -72,6 +73,7 @@ class PlansController < ApplicationController
       creator_attendance.attending = true
       creator_attendance.save
 
+      # when you add multiple people, you need to go through a list here and create and attendance for every person that is invited
       # when we create the attendance for the invited, flake is false, pending is true, and attending is false because they still have to decide 
       invited_attendance = Attendance.new
       invited_attendance.user_id = @invited_id
