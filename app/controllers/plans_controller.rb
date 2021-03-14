@@ -59,7 +59,9 @@ class PlansController < ApplicationController
     the_plan.time = params.fetch("query_time")
     the_plan.status = the_plan.find_status
     # with multiple people, this will be a list
+    p "this is the list of people that is invited"
     @invited_id = params.fetch("query_invited_id")
+    p @invited_id 
 
     if the_plan.valid?
       the_plan.save

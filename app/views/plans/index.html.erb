@@ -37,7 +37,7 @@
         <label for="invited">
           Who do you want to invite?
         </label>
-        <select id="invited" name="query_invited_id">
+        <select id="invited" name="query_invited_id" multiple>
           <%User.all.each do |a_user|%>
             <% if a_user.id != @current_user.id %>
               <option value = <%= a_user.id %>>
