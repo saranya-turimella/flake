@@ -58,10 +58,8 @@ class PlansController < ApplicationController
     the_plan.location = params.fetch("query_location")
     the_plan.time = params.fetch("query_time")
     the_plan.status = the_plan.find_status
-    # with multiple people, this will be a list
     p "this is the list of people that is invited"
-    @invited_id = params.fetch("query_invited_id")
-    p @invited_id 
+    invited_ids = params.fetch("query_invited_id")
 
     if the_plan.valid?
       the_plan.save
@@ -77,13 +75,15 @@ class PlansController < ApplicationController
 
       # when you add multiple people, you need to go through a list here and create and attendance for every person that is invited
       # when we create the attendance for the invited, flake is false, pending is true, and attending is false because they still have to decide 
-      invited_attendance = Attendance.new
-      invited_attendance.user_id = @invited_id
-      invited_attendance.plan_id = the_plan.id
-      invited_attendance.flake = false
-      invited_attendance.pending = true 
-      invited_attendance.attending = false
-      invited_attendance.save 
+      invited_ids.each do |invited_id|
+        invited_attendance = Attendance.new
+        invited_attendance.user_id = invited_id
+        invited_attendance.plan_id = the_plan.id
+        invited_attendance.flake = false
+        invited_attendance.pending = true 
+        invited_attendance.attending = false
+        invited_attendance.save 
+      end
 
       redirect_to("/plans", { :notice => "Plan created successfully." })
     else
