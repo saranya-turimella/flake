@@ -33,15 +33,6 @@ class Plan < ApplicationRecord
       end
     end
     
-    # if someone has declined this invitation (they are not attending, but flake is still false)
-    matching_attendances.each do |a_attendance|
-      if a_attendance.attending == false && a_attendance.flake == false 
-        return "Someone invited could not make it. This plan is now cancelled."
-      end
-    end
-    
-    
-
     #if there is one person that has not responded to the plan yet, return that not everyone has responded yet
     if all_responses == false
       return "Not everyone has responded yet!"
@@ -63,6 +54,15 @@ class Plan < ApplicationRecord
       return "This plan has been flaked on by everyone. This plan is now cancelled."
     end
 
+    
+
+     # if someone has declined this invitation (they are not attending, but flake is still false)
+    matching_attendances.each do |a_attendance|
+      if a_attendance.attending == false && a_attendance.flake == false && a_attendance.pending == false 
+        return "Someone invited could not make it. This plan is now cancelled."
+      end
+    end
+    
     #if there are some flakes, and everyone has responded 
     if num_flakes < matching_attendances.size && all_responses == true 
       return "It's on!"
