@@ -57,12 +57,12 @@
         <% if matching_attendance.pending == true %>
           <p> You have not yet responded to this plan. </p>
           <div>
-            <a href="/accept_plan/<%= @the_plan.id %>/<%= @current_user.id %>">
+            <a class = "btn btn-success" href="/accept_plan/<%= @the_plan.id %>/<%= @current_user.id %>">
               Accept Invitation
             </a>
           </div>
           <div>
-            <a href="/decline_plan/<%= @the_plan.id %>/<%= @current_user.id %>">
+            <a class = "btn btn-danger" href="/decline_plan/<%= @the_plan.id %>/<%= @current_user.id %>">
               Decline Invitation
             </a>
           </div>

@@ -74,7 +74,7 @@
           <p> Plan status: <%= @the_plan.status %> </p>
           <% if matching_attendance.attending == true %>
             <div>
-              <a href="/flake/<%= @the_plan.id %>/<%= @current_user.id %>">
+              <a class = "btn btn-primary" href="/flake/<%= @the_plan.id %>/<%= @current_user.id %>">
                 FLAKE on this plan. 
               </a>
             </div>
