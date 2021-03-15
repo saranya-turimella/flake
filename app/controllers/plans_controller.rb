@@ -58,7 +58,6 @@ class PlansController < ApplicationController
     the_plan.location = params.fetch("query_location")
     the_plan.time = params.fetch("query_time")
     the_plan.status = the_plan.find_status
-    p "this is the list of people that is invited"
     invited_ids = params.fetch("query_invited_id")
 
     if the_plan.valid?
