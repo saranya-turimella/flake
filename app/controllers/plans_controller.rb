@@ -125,7 +125,7 @@ class PlansController < ApplicationController
     the_attendance.pending = false 
     the_attendance.save
     the_plan = Plan.where({ :id => accepting_plan_id }).at(0)
-    redirect_to("/my_plans/#{the_plan.id}")
+    redirect_to("/my_invited_plans/#{the_plan.id}")
   end
 
   def decline 
@@ -136,8 +136,9 @@ class PlansController < ApplicationController
     the_attendance.pending = false 
     the_attendance.save
     the_plan = Plan.where({ :id => declining_plan_id }).at(0)
-    redirect_to("/my_plans/#{the_plan.id}")
+    redirect_to("/my_invited_plans/#{the_plan.id}")
   end
+
 
   def flake 
     flaking_plan_id = params.fetch("path_id")
@@ -148,7 +149,13 @@ class PlansController < ApplicationController
     the_attendance.pending = false 
     the_attendance.save
     the_plan = Plan.where({ :id => flaking_plan_id }).at(0)
-    redirect_to("/my_plans/#{the_plan.id}")
+    
+    #if the current user is the creator of the plan, we want it to re-direct to the creator page
+    if @current_user.id == the_plan.creator_id
+      redirect_to("/my_plans/#{the_plan.id}")
+    else
+      redirect_to("/my_invited_plans/#{the_plan.id}")
+    end
   end
     
 end

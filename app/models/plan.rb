@@ -21,8 +21,6 @@ class Plan < ApplicationRecord
 
   def find_status
     matching_attendances = self.attendances
-    p "these are the matching attendances"
-    p matching_attendances
   
     # loop that finds if all people invited have responded to the plan yet, if all have responded returns true, if not returns false
     declines = 0
@@ -67,5 +65,7 @@ class Plan < ApplicationRecord
     if num_flakes < matching_attendances.size && all_responses == true 
       return "It's on!"
     end
+
+   
   end
 end

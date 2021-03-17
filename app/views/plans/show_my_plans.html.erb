@@ -16,6 +16,7 @@
           Delete plan
         </a>
       </div>
+       
       <% end %>
     </div>
     <dl>
@@ -85,6 +86,7 @@
 </div>
 <hr>
 
+<% if @the_plan.find_status == "Not everyone has responded yet!" || @the_plan.find_status == "It's on!" %>
 <% if @current_user.id == @the_plan.creator_id %>
   <div>
     <div>
@@ -122,5 +124,6 @@
       </form>
     </div>
   </div>
+<%end%>
 <%end%>
 <hr>
