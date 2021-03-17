@@ -72,7 +72,17 @@
           <% status = @the_plan.find_status %>
           <% @the_plan.status = status %>
           <% @the_plan.save %>
-          <p> Plan status: <%= @the_plan.status %> </p>
+        
+          <% if @the_plan.status == "It's on!"%>
+            <p class ="text-success" > Plan status: <%= @the_plan.status %> </p>
+          <%elsif @the_plan.status == "This plan has been flaked on by everyone. This plan is now cancelled."%>
+            <p class ="text-warning" > Plan status: <%= @the_plan.status %> </p>
+          <% elsif @the_plan.status == "Someone invited could not make it. This plan is now cancelled." %>
+            <p class ="text-danger" > Plan status: <%= @the_plan.status %> </p>
+          <% else %>
+            <p> Plan status: <%= @the_plan.status %> </p>
+          <%end %>
+          
           <% if matching_attendance.attending == true %>
             <div>
               <a class = "btn btn-primary" href="/flake/<%= @the_plan.id %>/<%= @current_user.id %>">
