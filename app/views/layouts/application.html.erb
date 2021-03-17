@@ -17,49 +17,43 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Flake: The app for flakes, by flakes </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      
+      <% if session[:user_id] == nil %>
+      <li class="nav-item">
+        <a class="btn btn-secondary" href="/user_sign_up">Sign Up</a>
+      </li>
+     
+      <li class="nav-item">
+        <a class="btn btn-secondary" href="/user_sign_in">Sign in</a>
+      </li>
+      
+      <%else%>
+       <li class="nav-item">
+        <a class="btn btn-secondary" href="/plans">Your Plans</a>
+      </li>
+      </ul>
+       <div class="nav-item my-2 my-lg-0">
+      <a class="btn btn-warning" href="/user_sign_out"><%= @current_user.first_name %>, Sign Out</a>
+    </div>
+      <%end %>
+      </li>
+    
+   
+  </div>
+</nav>
   <body>
    
   <div class = "container">
-     <ul>
-      <% if session[:user_id] == nil %>
-        <li>
-          <a href = "/user_sign_up">
-            Sign up 
-          </a>
-        </li>
-        <li>
-          <a href = "/user_sign_in">
-            Sign in 
-          </a>
-        </li>
-        <li>
-          <a href = "/">
-            Homepage 
-          </a>
-        </li>
-      <% else %>
-        <li>
-          Flake, the app for flakes by flakes...
-        </li>
-        <li>
-          Currently Signed in As: <%= @current_user.first_name %>
-        </li>
-        <li>
-          <a href = "/user_sign_out">
-            Sign out 
-          </a>
-        </li>
-        <li>
-          <a href = "/">
-            Homepage 
-          </a>
-        </li>
-        <li>
-          <a href = "/plans">
-            Your Plans
-          </a>
-        </li>
-      <% end %>
+  <ul>
+     
     </ul>
       <%= yield %>
   </div>
