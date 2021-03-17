@@ -1,10 +1,17 @@
 <% if session[:user_id] == nil %>
-  <h1> Welcome to Flake! </h1>
-  <h2> The app for flakes, by flakes... </h2>
- 
-  
+
+<div class="jumbotron">
+  <h1 class="display-3">Welcome to Flake!</h1>
+  <p class="lead">The app for flakes, by flakes.</p>
+  <hr class="my-4">
+</div>
+
 <% else %>
-  <h1> <%= @current_user.first_name %>, welcome to Flake! </h1>
-  <h2> The app for flakes, by flakes... </h2>
+<div class="jumbotron">
+  <h1 class="display-3"><%= @current_user.first_name %>, Welcome to Flake!</h1>
+  <p class="lead">The app for flakes, by flakes.</p>
+  <hr class="my-4">
+</div>
+
   
 <% end %>
