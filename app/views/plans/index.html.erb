@@ -11,7 +11,6 @@
     <h2>
       Add a new plan
     </h2>
-  
     <form action="/insert_plan" method="post">
       <div>
         <label for="title_box">
@@ -55,8 +54,6 @@
   </div>
 </div>
 <hr>
-
-
 <h2> Plans I've Created </h2>
 <div>
   <div>
@@ -80,7 +77,6 @@
         <th>
         </th>
       </tr>
-      
       <% @list_of_my_plans.each do |a_plan| %>
         <tr>
           <td>
@@ -119,7 +115,6 @@
   <div>
     <table border = "1">
       <tr>
-        
         <th>
           Title
         </th>
@@ -135,13 +130,11 @@
         <th>
           Status
         </th>
-        
         <th>
         </th>
       </tr>
       <% @list_of_invited_plans.each do |a_plan| %>
         <tr>
-          
           <td>
             <%= a_plan.title %>
           </td>
@@ -161,7 +154,6 @@
             <% a_plan.save %>
             <%= a_plan.status %>
           </td>
-         
           <td>
             <a href="/my_invited_plans/<%= a_plan.id %>">
               Show details
@@ -173,4 +165,3 @@
   </div>
 </div>
 <hr>
-
